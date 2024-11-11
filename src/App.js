@@ -26,7 +26,7 @@ function ConditionalComponents() {
 }
 
 function App() {
-  const [language, setLanguage] = useState('en'); // Default language Englishs
+  const [language, setLanguage] = useState('en'); // Default language English
 
   const handleLanguageSelect = (lang) => {
       setLanguage(lang);
