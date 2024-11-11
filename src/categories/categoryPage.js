@@ -1,4 +1,4 @@
-o// CategoryPage.js
+// CategoryPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import categories from './categories'; // Importing categories
