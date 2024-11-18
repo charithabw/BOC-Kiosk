@@ -1,29 +1,15 @@
-// CategoryPage.js
-import React, { useEffect} from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import categories from './categories'; // Importing categories
-import Services from './Services';
+import { useLanguage } from '../language/LanguageContext';
+import categories from './categories';
 
-function CategoryPage({ language = 'en' }) { // Default language is English
-  const navigate = useNavigate(); // Hook to handle navigation
+function CategoryPage() {
+  const navigate = useNavigate();
+  const { language } = useLanguage(); // Extract language using the custom hook
 
-  useEffect(() => {  
-      getAllCategories();
-  });
-
-  const handleCategoryClick = (category) => {
-    if (category.en === 'Digital Products') {
-      navigate('/digital-products');
-    } else {     
-      
-      console.log(`Category ${category.en} clicked!`); // Debugging line
-    }
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/products/${categoryId}`);
   };
-
-  async function getAllCategories() {
-    const categories = await Services.getAllCategories();
-    
-  }
 
   return (
     <div className="category-page">
@@ -33,9 +19,9 @@ function CategoryPage({ language = 'en' }) { // Default language is English
           <button
             key={category.id}
             className="category-button"
-            onClick={() => handleCategoryClick(category)}
+            onClick={() => handleCategoryClick(category.id)}
           >
-            {category[language]}
+            {category[language]} {/* Make sure this is correctly reflecting the state */}
           </button>
         ))}
       </div>

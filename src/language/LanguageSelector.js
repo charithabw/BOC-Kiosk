@@ -1,34 +1,20 @@
 // LanguageSelector.js
-
-import React, { useState, useEffect } from "react";
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from './LanguageContext';
 
-function LanguageSelector({ onLanguageSelect }) {
-  const [currentWord, setCurrentWord] = useState("Select The Language");
-  const words = [
-    "Select The Language",
-    "භාෂාව තෝරන්න",
-    "மொழியைத் தேர்ந்தெடுக்கவும்",
-  ];
+function LanguageSelector() {
+  const navigate = useNavigate();
+  const { setLanguage } = useLanguage(); // Get setLanguage from context
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentWord(prevWord => words[(words.indexOf(prevWord) + 1) % words.length]);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const navigate = useNavigate(); // Hook for navigation
-
-  const handleLanguageSelection = (language) => {
-    onLanguageSelect(language); // Set the language in state
-    navigate('/categories', { state: { language } }); // Navigate to categories page
+  const handleLanguageSelection = (lang) => {
+    setLanguage(lang);  // Set language in context
+    navigate('/categories');  // Navigate to categories page
   };
 
   return (
     <div>
-      <h3>{currentWord}</h3>
+      <h3>Select Your Language</h3>
       <div className="btn-group">
         <a className="btn_sinhala" onClick={() => handleLanguageSelection('si')}>සිංහල</a>
         <a className="btn_english" onClick={() => handleLanguageSelection('en')}>English</a>
