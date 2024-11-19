@@ -1,49 +1,43 @@
-// App.js
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { LanguageProvider } from './language/LanguageContext';
 import LanguageSelector from './language/LanguageSelector';
 import CategoryPage from './categories/categoryPage';
 import VideoBackground from './components/VideoBackground';
 import Clock from './components/Clock';
-import logo from './assets/images/logo333.png'; 
-import "./style/App.css"
+import logo from './assets/images/logo333.png';
+import "./style/App.css";
 import "./style/categories.css";
-import DigitalProductsPage from './digitalProducts/DigitalProductsPage';
+// import ProductDetail from './Products/ProductDetail';
 
-
-
-// New Component for Conditional Rendering
 function ConditionalComponents() {
-  const location = useLocation(); // Access location here
-  const showVideoAndClock = location.pathname === '/'; // Adjust condition as needed
+  const location = useLocation(); // Get the current location path
+  // Check if the current path is the home ('/') path
+  const isHome = location.pathname === '/';
 
   return (
-      <>
-          {showVideoAndClock && <VideoBackground />}
-          {showVideoAndClock && <Clock />}
-      </>
+    <>
+      {isHome && <VideoBackground />}
+      {isHome && <Clock />}
+    </>
   );
 }
 
 function App() {
-  const [language, setLanguage] = useState('en'); // Default language English
-
-  const handleLanguageSelect = (lang) => {
-      setLanguage(lang);
-  };
-
   return (
-      <Router>
-          <div className="body_class">
-              <ConditionalComponents />
-              <img src={logo} alt="Capp" className="home_img" />
-              <Routes>
-                  <Route path="/" element={<LanguageSelector onLanguageSelect={handleLanguageSelect} />} />
-                  <Route path="/categories" element={<CategoryPage language={language} />} />
-                  <Route path="/digital-products" element={<DigitalProductsPage language={language} />} />
-              </Routes>
-          </div>
-      </Router>
+    <Router>
+      <LanguageProvider> {/* Ensure that LanguageProvider wraps Routes */}
+        <div className="body_class">
+          <ConditionalComponents /> {/* Conditional rendering based on route */}
+          <img src={logo} alt="Capp" className="home_img" />
+          <Routes>
+            <Route path="/" element={<LanguageSelector />} />
+            <Route path="/categories" element={<CategoryPage />} />
+            {/* <Route path="/product-details/:productId" element={<ProductDetail />} />  */}
+          </Routes>
+        </div>
+      </LanguageProvider>
+    </Router>
   );
 }
 
