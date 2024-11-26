@@ -9,7 +9,7 @@ export default {
 
 async function getAllCategories() {
     console.log("hit");
-    let response = await CommonGet('HomeScreen/GetHomeScreen');
+    let response = await CommonGet('Catogory/GetCatorgory');
     console.log(response);
     return response;
 };

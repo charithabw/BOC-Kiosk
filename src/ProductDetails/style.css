@@ -1,0 +1,7 @@
+.product-details-container {
+    position: relative; /* Ensure content is positioned above the video */
+    z-index: 1;
+    padding: 20px;
+    color: #fff; /* Text contrast against the video */
+  }
+  
