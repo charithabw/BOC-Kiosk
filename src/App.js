@@ -8,6 +8,10 @@ import Clock from './components/Clock';
 import logo from './assets/images/logo333.png';
 import "./style/App.css";
 import "./style/categories.css";
+import ProductsPage from './Products/ProductsPage';
+import ProductDetailsPage from './ProductDetails/Product-Details';
+import FAQPage from './faq/faq';
+
 // import ProductDetail from './Products/ProductDetail';
 
 function ConditionalComponents() {
@@ -33,7 +37,11 @@ function App() {
           <Routes>
             <Route path="/" element={<LanguageSelector />} />
             <Route path="/categories" element={<CategoryPage />} />
-            {/* <Route path="/product-details/:productId" element={<ProductDetail />} />  */}
+            <Route path="/products/:categoryId" element={<ProductsPage />} />  
+            <Route path="/product-details/:productId" element={<ProductDetailsPage />} />
+            <Route path="faq" element={<FAQPage />} />
+            
+          
           </Routes>
         </div>
       </LanguageProvider>
