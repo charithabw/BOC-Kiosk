@@ -4,12 +4,15 @@ import { useLanguage } from '../language/LanguageContext';
 import categoryService from '../categories/Services';
 import VideoBackground from '../components/VideoBackground';
 import './style.css';
+import categories from './categories';
+import Services from './Services';
 
 function CategoryPage() {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const [categories, setCategories] = useState([]); // State to store fetched categories
   const [loading, setLoading] = useState(true); // State to handle loading
+
 
   const fetchCategories = async () => {
     try {
@@ -36,6 +39,7 @@ function CategoryPage() {
 
   if (loading) {
     return <div>Loading categories...</div>; 
+
   }
 
   return (
