@@ -4,8 +4,8 @@ import { useLanguage } from '../language/LanguageContext';
 import categoryService from '../categories/Services';
 import VideoBackground from '../components/VideoBackground';
 import './style.css';
-import categories from './categories';
-import Services from './Services';
+
+
 
 function CategoryPage() {
   const navigate = useNavigate();
