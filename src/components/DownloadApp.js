@@ -15,3 +15,7 @@ const DownloadApp = ({ qrCodes }) => {
 };
 
 export default DownloadApp;
+
+
+
+

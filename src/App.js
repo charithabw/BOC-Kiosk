@@ -10,13 +10,13 @@ import "./style/App.css";
 import "./style/categories.css";
 import ProductsPage from './Products/ProductsPage';
 import ProductDetailsPage from './ProductDetails/Product-Details';
-import FAQPage from './faq/faq';
-
-// import ProductDetail from './Products/ProductDetail';
+import FAQPage from './faq/FAQPage';
+import DemoVideoPage from './demoVideo/DemoVideoPage';
+import FeedbackPage from './feedback/FeedbackPage';
 
 function ConditionalComponents() {
-  const location = useLocation(); // Get the current location path
-  // Check if the current path is the home ('/') path
+  const location = useLocation(); 
+
   const isHome = location.pathname === '/';
 
   return (
@@ -30,7 +30,7 @@ function ConditionalComponents() {
 function App() {
   return (
     <Router>
-      <LanguageProvider> {/* Ensure that LanguageProvider wraps Routes */}
+      <LanguageProvider> 
         <div className="body_class">
           <ConditionalComponents /> {/* Conditional rendering based on route */}
           <img src={logo} alt="Capp" className="home_img" />
@@ -39,7 +39,9 @@ function App() {
             <Route path="/categories" element={<CategoryPage />} />
             <Route path="/products/:categoryId" element={<ProductsPage />} />  
             <Route path="/product-details/:productId" element={<ProductDetailsPage />} />
-            <Route path="faq" element={<FAQPage />} />
+            <Route path="/faq/:productId" element={<FAQPage />} />
+            <Route path="/demo-video" element={<DemoVideoPage />} />
+            <Route path="/feedback/:productName" element={<FeedbackPage />} />
             
           
           </Routes>

@@ -5,6 +5,9 @@ import { useLanguage } from '../language/LanguageContext';
 import productService from './services'; 
 import VideoBackground from '../components/VideoBackground';
 import DownloadApp from '../components/DownloadApp'; 
+import FAQButton from '../components/FAQButton';
+import DemoVideoButton from '../components/DemoVideoButton';
+import FeedbackButton from '../components/FeedbackButton';
 import '../style/App.css';
 
 function ProductDetailsPage() {
@@ -42,7 +45,7 @@ function ProductDetailsPage() {
     }
 
     
-    const { titleEng, titleSin, titleTam, desEng, desSin, desTam, subTitleEng, subTitleSin, subTitleTam, pointListEng, pointListSin, pointListTam } = productDetails;
+    const { titleEng, titleSin, titleTam, desEng, desSin, desTam, subTitleEng, subTitleSin, subTitleTam, pointListEng, pointListSin, pointListTam} = productDetails;
 
     const qrCodes = {
         appStore: 'https://example.com/appStoreQrCode.png',
@@ -70,6 +73,15 @@ function ProductDetailsPage() {
             </ul>
 
             <DownloadApp qrCodes={qrCodes} />
+
+
+          {/* Add the button components */}
+          <div className="navigation-buttons">
+                <FAQButton productId={productId} />
+                <DemoVideoButton />
+                <FeedbackButton productName={title} />
+    
+            </div>
         </div>
     );
 }
