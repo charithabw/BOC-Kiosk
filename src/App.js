@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import { LanguageProvider } from './language/LanguageContext';
-import LanguageSelector from './language/LanguageSelector';
+// import LanguageSelector from './language/LanguageSelector';
 import CategoryPage from './categories/categoryPage';
-import VideoBackground from './components/VideoBackground';
 import Clock from './components/Clock';
 import logo from './assets/images/logo333.png';
 import "./style/App.css";
@@ -13,30 +12,34 @@ import ProductDetailsPage from './ProductDetails/Product-Details';
 import FAQPage from './faq/FAQPage';
 import DemoVideoPage from './demoVideo/DemoVideoPage';
 import FeedbackPage from './feedback/FeedbackPage';
+import LanguageSelectorComponent from './components/LanguageSelectorComponent';
 
-function ConditionalComponents() {
-  const location = useLocation(); 
 
-  const isHome = location.pathname === '/';
+// function ConditionalComponents() {
+//   const location = useLocation(); 
 
-  return (
-    <>
-      {isHome && <VideoBackground />}
-      {isHome && <Clock />}
-    </>
-  );
-}
+//   const isHome = location.pathname === '/';
+
+//   return (
+//     <>
+//       {isHome && <VideoBackground />}
+  
+//     </>
+//   );
+// }
 
 function App() {
   return (
     <Router>
       <LanguageProvider> 
         <div className="body_class">
-          <ConditionalComponents /> {/* Conditional rendering based on route */}
+          {/* <ConditionalComponents /> Conditional rendering based on route */}
           <img src={logo} alt="Capp" className="home_img" />
+          <LanguageSelectorComponent />
+          <Clock />
           <Routes>
-            <Route path="/" element={<LanguageSelector />} />
-            <Route path="/categories" element={<CategoryPage />} />
+            {/* <Route path="/" element={<LanguageSelector />} /> */}
+            <Route path="/" element={<CategoryPage />} />
             <Route path="/products/:categoryId" element={<ProductsPage />} />  
             <Route path="/product-details/:productId" element={<ProductDetailsPage />} />
             <Route path="/faq/:productId" element={<FAQPage />} />
