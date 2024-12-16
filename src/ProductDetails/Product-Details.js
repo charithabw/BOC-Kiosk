@@ -7,7 +7,7 @@ import DownloadApp from '../components/DownloadApp';
 import FAQButton from '../components/FAQButton';
 import DemoVideoButton from '../components/DemoVideoButton';
 import FeedbackButton from '../components/FeedbackButton';
-import '../style/App.css';
+import { Box, Typography, CircularProgress, Container, List, ListItem } from '@mui/material';
 
 function ProductDetailsPage() {
     const { productId } = useParams();
@@ -22,6 +22,7 @@ function ProductDetailsPage() {
             setLoading(true);
             try {
                 const detailResponse = await productService.GetProductDetailByProductNameID(productId);
+                const imagesResponse = await productService.GetProductImagesByProductNameID(productId);
                 if (detailResponse.statusCode === 'SUCCESS' && detailResponse.data.length > 0) {
                     setProductDetails(detailResponse.data[0]);
                 } else {
@@ -29,12 +30,8 @@ function ProductDetailsPage() {
                     setError('Failed to fetch product details');
                 }
                 
-                const imagesResponse = await productService.GetProductImagesByProductNameID(productId);
                 if (imagesResponse.statusCode === 'SUCCESS' && imagesResponse.data.length > 0) {
-                    console.log('Product Images:', imagesResponse.data[0]);
                     setProductImages(imagesResponse.data[0]);
-                    console.log('Set State:', productImages);
- 
                 } else {
                     console.error('Failed to fetch product images');
                     setError('Failed to fetch product images');
@@ -51,15 +48,15 @@ function ProductDetailsPage() {
     }, [productId]);
 
     if (loading) {
-        return <div>Loading product details...</div>;
+        return <CircularProgress />;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <Typography variant="body1" color="error">{error}</Typography>;
     }
 
     if (!productDetails) {
-        return <div>Product not found</div>;
+        return <Typography variant="body1">Product not found</Typography>;
     }
 
     const {
@@ -83,29 +80,28 @@ function ProductDetailsPage() {
     };
 
     return (
-        <div className="product-details-container">
+        <Container sx={{ padding: 3 }}>
             <VideoBackground />
-           {logo ? (
-    <img src={toImageUrl(logo)} alt="Product logo" />
-) : (
-    <div>No logo data or rendering issue</div>
-)}
-
-            <h1>{getTitle()}</h1>
-            <p>{getDescription()}</p>
-            <h2>{getSubtitle()}</h2>
-            <ul>
+            {logo ? (
+                <img src={toImageUrl(logo)} alt="Product logo" style={{ width: 100, height: 'auto' }} />
+            ) : (
+                <Typography>No logo data or rendering issue</Typography>
+            )}
+            <Typography variant="h4">{getTitle()}</Typography>
+            <Typography>{getDescription()}</Typography>
+            <Typography variant="h6">{getSubtitle()}</Typography>
+            <List>
                 {getPointList().map((point, index) => (
-                    <li key={index}>{point}</li>
+                    <ListItem key={index}>{point}</ListItem>
                 ))}
-            </ul>
+            </List>
             <DownloadApp qrCodes={qrCodes} />
-            <div className="navigation-buttons">
+            <Box display="flex" justifyContent="space-between">
                 <FAQButton productId={productId} />
                 <DemoVideoButton />
                 <FeedbackButton productName={getTitle()} />
-            </div>
-        </div>
+            </Box>
+        </Container>
     );
 }
 
