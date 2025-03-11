@@ -1,53 +1,72 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
-import { LanguageProvider } from './language/LanguageContext';
-// import LanguageSelector from './language/LanguageSelector';
-import CategoryPage from './categories/categoryPage';
-import Clock from './components/Clock';
-import logo from './assets/images/logo333.png';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import { LanguageProvider } from "./language/LanguageContext";
+import CategoryPage from "./categories/categoryPage";
+import Clock from "./components/Clock";
+import logo from "./assets/images/logo333.png";
 import "./style/App.css";
 import "./style/categories.css";
-import ProductsPage from './Products/ProductsPage';
-import ProductDetailsPage from './ProductDetails/Product-Details';
-import FAQPage from './faq/FAQPage';
-import DemoVideoPage from './demoVideo/DemoVideoPage';
-import FeedbackPage from './feedback/FeedbackPage';
-import LanguageSelectorComponent from './components/LanguageSelectorComponent';
+import ProductsPage from "./Products/ProductsPage";
+import ProductDetailsPage from "./ProductDetails/ProductDetailsPage";
 
+import FAQPage from "./faq/FAQPage";
+import DemoVideoPage from "./demoVideo/DemoVideoPage";
+import FeedbackPage from "./feedback/FeedbackPage";
+import LanguageSelectorComponent from "./components/LanguageSelectorComponent";
 
-// function ConditionalComponents() {
-//   const location = useLocation(); 
+import MainPage from "./Home/MainPage";
 
-//   const isHome = location.pathname === '/';
+function NavigationIcons() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-//   return (
-//     <>
-//       {isHome && <VideoBackground />}
-  
-//     </>
-//   );
-// }
+  return (
+    <div className="nav-icons">
+      <button onClick={() => navigate("/")}>🏠</button>
+      {location.pathname !== "/" && (
+        <button onClick={() => navigate(-1)}>🔙</button>
+      )}
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <LanguageProvider> 
+      <LanguageProvider>
         <div className="body_class">
-          {/* <ConditionalComponents /> Conditional rendering based on route */}
-          <img src={logo} alt="Capp" className="home_img" />
-          <LanguageSelectorComponent />
-          <Clock />
-          <Routes>
-            {/* <Route path="/" element={<LanguageSelector />} /> */}
-            <Route path="/" element={<CategoryPage />} />
-            <Route path="/products/:categoryId" element={<ProductsPage />} />  
-            <Route path="/product-details/:productId" element={<ProductDetailsPage />} />
-            <Route path="/faq/:productId" element={<FAQPage />} />
-            <Route path="/demo-video" element={<DemoVideoPage />} />
-            <Route path="/feedback/:productName" element={<FeedbackPage />} />
-            
-          
-          </Routes>
+          <header className="header">
+            <img src={logo} alt="Capp" className="home_img" />
+            <LanguageSelectorComponent />
+            <Clock className="clock" />
+          </header>
+
+          <NavigationIcons />
+
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/products/:categoryId" element={<ProductsPage />} />
+
+              <Route
+                path="/product-details/:productId"
+                element={<ProductDetailsPage />}
+              />
+              <Route path="/faq/:productId" element={<FAQPage />} />
+              <Route path="/demo-video" element={<DemoVideoPage />} />
+              <Route path="/feedback/:productName" element={<FeedbackPage />} />
+            </Routes>
+          </main>
+
+          <footer className="footer">
+            <p>Footer Content Here</p>
+          </footer>
         </div>
       </LanguageProvider>
     </Router>
