@@ -32,7 +32,11 @@ const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
       try {
         const response = await categoryServices.getAllCategories();
         if (response.statusCode === "SUCCESS") {
-          setCategories(response.data || []);
+          const categoryData = response.data || [];
+          setCategories(categoryData);
+          if (categoryData.length > 0) {
+            setActiveIndex(0); // Set the first category as active
+          }
         } else {
           console.error("Failed to fetch categories:", response.message);
         }
@@ -44,12 +48,14 @@ const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
   }, []);
 
   useEffect(() => {
-    if (!isScrolling) return;
+    if (!isScrolling || categories.length === 0) return;
+
     const interval = setInterval(() => {
       handleScroll(isMobile ? "right" : "down");
     }, 3000);
+
     return () => clearInterval(interval);
-  }, [activeIndex, categories, isScrolling, isMobile]);
+  }, [activeIndex, categories.length, isScrolling, isMobile]);
 
   const handleScroll = (direction) => {
     setActiveIndex((prevIndex) => {
