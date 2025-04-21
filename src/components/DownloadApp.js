@@ -19,7 +19,7 @@ const DownloadApp = ({ qrCodes }) => {
   return (
     <Box sx={{ textAlign: "center", padding: 4 }}>
       <h2>Download the App</h2>
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: 4 }}>
         {Object.entries(qrCodes).map(([store, src]) => (
           <motion.img
             key={store}

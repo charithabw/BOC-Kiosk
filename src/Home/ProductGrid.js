@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import productService from "../Products/services";
 import { useNavigate } from "react-router-dom";
-import Carousel from "react-material-ui-carousel"; // Importing Carousel
+import Carousel from "react-material-ui-carousel";
 import { useLanguage } from "../language/LanguageContext";
 import HomeBanner from "./HomeBanner";
+import productIcon from "../assets/images/product-icon.png";
 
 const colorArray = [
   "#FF5733",
@@ -43,8 +44,6 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
   const { language } = useLanguage();
 
   useEffect(() => {
-    //if (!selectedCategory) return;
-
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -78,7 +77,6 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
   };
 
   const renderGrid = () => {
-    // Split products into chunks of 6 for slides
     const categoryName = selectedCategoryName
       ? selectedCategoryName[language]
       : "";
@@ -89,9 +87,8 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
 
     return (
       <Carousel
-        indicators={products.length > 6 ? true : false} // Disable indicators
-        //navButtonsAlwaysVisible={false}
-        navButtonsAlwaysVisible={products.length > 6 ? true : false} // Always show navigation buttons
+        indicators={products.length > 6}
+        navButtonsAlwaysVisible={products.length > 6}
         navButtonsProps={{
           style: {
             backgroundColor: "black",
@@ -106,14 +103,12 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
             sx={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
-              gap: 1,
-              gap: "1px",
-              width: "100%",
+              gap: "2px",
+              width: "auto",
               height: "400px",
             }}
           >
-            {chunk.map((product, index) => (
-              //kkk
+            {chunk.map((product) => (
               <Box
                 key={product.id}
                 sx={{
@@ -123,9 +118,12 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
                   color: "#fff",
                   textAlign: "center",
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
+                  borderRadius: "10px",
+                  padding: 2,
                   gridColumn: `span ${product.colSpan}`,
                   "&:hover": { transform: "scale(1.02)" },
                   "@keyframes gradientAnimation": {
@@ -136,20 +134,31 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
                 }}
                 onClick={() => handleProductClick(product.id)}
               >
+                <Box
+                  sx={{
+                    width: "50%",
+                    maxWidth: "80px",
+                    marginBottom: "10px",
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={productIcon}
+                    alt="product"
+                    style={{
+                      width: "70%",
+                      height: "auto",
+                      filter: "brightness(0) invert(1)",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
                 <Typography variant="h6" fontWeight="bold">
-                  {language === "si"
-                    ? product.name.si
-                    : language === "ta"
-                    ? product.name.ta
-                    : language === "en"
-                    ? product.name.en
-                    : product.name.en}
+                  {product.name[language] || product.name.en}
                 </Typography>
               </Box>
             ))}
           </Box>
-
-          //jjj
         ))}
       </Carousel>
     );

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useLanguage } from "../language/LanguageContext";
 import productService from "./services";
 import { motion } from "framer-motion";
+
 import {
   Box,
   Typography,
@@ -26,6 +27,9 @@ import { borderColor, borderRightColor, fontSize } from "@mui/system";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"; // Scroll up icon
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"; // Scroll down icon
 import { BorderRightOutlined } from "@mui/icons-material";
+import DemoVideoComponent from "./DemoVideoComponent";
+import CustomerFeedback from "./CustomerFeedback";
+import FAQPage from "./FAQPage";
 
 function ProductDetailsPage() {
   const { productId } = useParams();
@@ -221,19 +225,22 @@ function ProductDetailsPage() {
       component: (
         <Fade in={tabIndex === 0} timeout={500}>
           <Box>
+            {/* First Row - Logo and Title/Description */}
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center",
+                alignItems: "flex-start",
                 marginBottom: 2,
+                marginTop: 6,
               }}
             >
+              {/* Logo Section */}
               {logo ? (
                 <motion.img
                   src={toImageUrl(logo)}
                   alt="Product logo"
-                  style={{ width: 150, height: "auto", marginBottom: "0px" }}
+                  style={{ width: 200, height: "auto", marginBottom: "0px" }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
@@ -241,80 +248,134 @@ function ProductDetailsPage() {
               ) : (
                 <Typography>No logo data or rendering issue</Typography>
               )}
-              <DownloadApp qrCodes={qrCodes} />
+
+              {/* Title & Description Section */}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  width: "calc(100% - 190px)", // Ensure proper spacing from logo
+                  textAlign: "right",
+                  //marginTop: "60px",
+                  marginRight: "20px",
+                  marginLeft: "40px",
+                }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  style={{ width: "100%" }}
+                >
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: "white",
+                      backgroundColor: "rgba(255, 165, 0, 0.5)",
+                      borderTopLeftRadius: "10px",
+                      borderTopRightRadius: "10px",
+                      fontWeight: "bold",
+                      fontSize: "2.5rem",
+                      padding: "0 10px",
+                      borderBottom: "solid 2px rgba(255, 165, 0, 1)",
+                      //width: "100%",
+                      textAlign: "left",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    {getTitle()}
+                  </Typography>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  style={{ width: "100%" }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: "text.secondary",
+                      fontWeight: "bold",
+                      fontSize: "1.2rem",
+                      textAlign: "justify",
+                      mt: 1,
+                      textAlignLast: "left", // For better RTL support
+                      direction: "rtl", // Helps with justification alignment
+                    }}
+                  >
+                    {getDescription()}
+                  </Typography>
+                </motion.div>
+              </Box>
             </Box>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+
+            {/* Second Row - Features and Download */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                mt: 4,
+              }}
             >
-              <Typography
-                variant="h4"
+              {/* Features Section */}
+              <Box sx={{ width: "60%", pr: 4 }}>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: "bold",
+                      mb: 2,
+                      textAlign: "left",
+                    }}
+                  >
+                    {getSubtitle()}
+                  </Typography>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  <List sx={{ marginTop: 1 }}>
+                    {getPointList().map((point, index) => (
+                      <ListItem key={index} sx={{ paddingLeft: 0 }}>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            fontWeight: "bold",
+                            textAlign: "left",
+                          }}
+                        >
+                          ✧ {point}
+                        </Typography>
+                      </ListItem>
+                    ))}
+                  </List>
+                </motion.div>
+              </Box>
+
+              {/* Download Section */}
+              <Box
                 sx={{
-                  color: "white",
-                  marginTop: 0,
-                  backgroundColor: "rgba(255, 165, 0, 0.5)",
-                  borderTopLeftRadius: "10px",
-                  borderTopRightRadius: "10px",
-                  fontWeight: "bold",
-                  width: "auto",
-                  fontSize: "2.5rem",
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                  width: "auto",
-                  borderBottomStyle: "solid",
-                  borderBottomColor: "rgba(255, 165, 0, 1)",
-                  display: "inline-block",
-                  whiteSpace: "nowrap",
+                  width: "50%",
+                  pl: 4,
+                  mt: -2,
+                  display: "flex",
+                  justifyContent: "flex-end",
                 }}
               >
-                {getTitle()}
-              </Typography>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <Typography
-                variant="body1"
-                sx={{
-                  marginTop: 2,
-                  color: "text.secondary",
-                  fontWeight: "bold",
-                  fontSize: "1.2rem",
-                }}
-              >
-                {getDescription()}
-              </Typography>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ marginTop: 2, fontWeight: "bold" }}
-              >
-                {getSubtitle()}
-              </Typography>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <List sx={{ marginTop: 2 }}>
-                {getPointList().map((point, index) => (
-                  <ListItem key={index} sx={{ paddingLeft: 0 }}>
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      ✧{point}
-                    </Typography>
-                  </ListItem>
-                ))}
-              </List>
-            </motion.div>
+                <DownloadApp qrCodes={qrCodes} />
+              </Box>
+            </Box>
           </Box>
         </Fade>
       ),
@@ -323,8 +384,8 @@ function ProductDetailsPage() {
       label: "� FAQ",
       component: (
         <Slide direction="left" in={tabIndex === 1} mountOnEnter unmountOnExit>
-          <Box>
-            <FAQButton productId={productId} />
+          <Box sx={{ padding: 2 }}>
+            <FAQPage productId={productId} />
           </Box>
         </Slide>
       ),
@@ -334,7 +395,17 @@ function ProductDetailsPage() {
       component: (
         <Grow in={tabIndex === 2} timeout={500}>
           <Box>
-            <DemoVideoButton />
+            <DemoVideoComponent
+              videos={[
+                {
+                  title: "Product Demo",
+                  src: "/videos/bg3_2.mp4",
+
+                  poster:
+                    "https://s3.ap-southeast-1.amazonaws.com/static.boc.lk/6301/media-240502101438.jpg",
+                },
+              ]}
+            />
           </Box>
         </Grow>
       ),
@@ -344,7 +415,7 @@ function ProductDetailsPage() {
       component: (
         <Slide direction="right" in={tabIndex === 3} mountOnEnter unmountOnExit>
           <Box>
-            <FeedbackButton productName={getTitle()} />
+            <CustomerFeedback productId={productId} productName={getTitle()} />
           </Box>
         </Slide>
       ),

@@ -26,13 +26,16 @@
 
 .footer {
   position: fixed;
+  max-height: 50px;
   bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
   padding: 10px;
   background-color: #f8f9fa; /* Adjust as needed */
-  z-index: 1000; /* Ensure it stays on top */
+  /*z-index: 1000;  Ensure it stays on top */
+
+  z-index: 1000;
 }
 
 .clock {
@@ -44,6 +47,7 @@
   margin-top: 80px; /* Adjust based on header height */
   margin-bottom: 60px; /* Adjust based on footer height */
   overflow-y: auto; /* Allow scrolling for main content */
+  position: relative;
 }
 
 .nav-icons {

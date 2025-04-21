@@ -21,20 +21,9 @@ import FeedbackPage from "./feedback/FeedbackPage";
 import LanguageSelectorComponent from "./components/LanguageSelectorComponent";
 
 import MainPage from "./Home/MainPage";
-
-function NavigationIcons() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  return (
-    <div className="nav-icons">
-      <button onClick={() => navigate("/")}>🏠</button>
-      {location.pathname !== "/" && (
-        <button onClick={() => navigate(-1)}>🔙</button>
-      )}
-    </div>
-  );
-}
+import HomePage from "./Home/HomePage";
+import ExchangeRates from "./components/ExchangeRates";
+import NavigationButtons from "./components/NavigationButtons";
 
 function App() {
   return (
@@ -47,11 +36,10 @@ function App() {
             <Clock className="clock" />
           </header>
 
-          <NavigationIcons />
-
           <main className="main-content">
             <Routes>
-              <Route path="/" element={<MainPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/main/:category?" element={<MainPage />} />
               <Route path="/products/:categoryId" element={<ProductsPage />} />
 
               <Route
@@ -63,9 +51,10 @@ function App() {
               <Route path="/feedback/:productName" element={<FeedbackPage />} />
             </Routes>
           </main>
+          <NavigationButtons />
 
           <footer className="footer">
-            <p>Footer Content Here</p>
+            <ExchangeRates />
           </footer>
         </div>
       </LanguageProvider>
