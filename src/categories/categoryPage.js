@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../language/LanguageContext';
 import categoryService from '../categories/Services';
-import VideoBackground from '../components/VideoBackground';
+import ProductDetailBackground from '../components/ProductDetailBackground';
 import './style.css';
-
-
 
 function CategoryPage() {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const [categories, setCategories] = useState([]); // State to store fetched categories
   const [loading, setLoading] = useState(true); // State to handle loading
-
 
   const fetchCategories = async () => {
     try {
@@ -38,45 +35,43 @@ function CategoryPage() {
   };
 
   if (loading) {
-    return <div>Loading categories...</div>; 
-
+    return <div>Loading categories...</div>;
   }
 
   return (
-    <div className="category-page">
-      <VideoBackground />
-      <h2>Categories</h2>
+    <div className="category-page" style={{ position: 'relative', height: '100vh' }}>
+      <ProductDetailBackground />
+      <h2 style={{ textAlign: 'center', color: '#54004E' }}>Categories</h2>
       <div
         className="categories-container"
         style={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-end',
-          gap: '20px',
-          position: 'absolute',
-          right: '20px',
-          top: '100px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '30px',
+          margin: '0 auto',
+          paddingTop: '50px', // Adjust top padding
         }}
       >
         {categories.map((category) => (
           <button
-            key={category.categoryID} // unique key from the data
+            key={category.categoryID}
             className="category-button"
             onClick={() => handleCategoryClick(category.categoryID)}
             style={{
-              width: '200px',
-              height: '60px',
-              fontSize: '1rem',
+              width: '300px', // Increased width
+              height: '80px', // Increased height
+              fontSize: '1.25rem', // Increased font size
               fontWeight: 'bold',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #ff7e5f, #feb47b)',
-              color: '#fff',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              borderRadius: '20px', // Rounded corners
+              background: 'linear-gradient(135deg, #F0B310, #C8940E)', // Using brand colors
+              color: '#F7F7F7', // Using light gray for contrast
+              boxShadow: '0 6px 10px rgba(0, 0, 0, 0.2)', // More prominent shadow for depth
               cursor: 'pointer',
+              border: 'none', // Remove default border
             }}
           >
-            {/* Dynamically display category name based on language */}
             {language === 'en'
               ? category.catEng
               : language === 'si'

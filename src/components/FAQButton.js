@@ -16,3 +16,5 @@ const FAQButton = ({ productId }) => {
 };
 
 export default FAQButton;
+
+

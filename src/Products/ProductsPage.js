@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../language/LanguageContext';
-import productService from './services'; 
+import productService from './services';
 import VideoBackground from '../components/VideoBackground';
-import './style.css'; 
+import './style.css';
 
 function ProductsPage() {
   const { categoryId } = useParams();
@@ -21,7 +21,7 @@ function ProductsPage() {
           setProducts(response.data.map(item => ({
             ...item,
             id: item.productNameID,
-            image: '#',  
+            image: '#',  // Use a valid image URL here
             name: {
               en: item.prodEng,
               si: item.prodSin,
@@ -39,10 +39,10 @@ function ProductsPage() {
     };
 
     fetchProducts();
-  }, [categoryId]); 
+  }, [categoryId]);
 
   const handleProductClick = (productId) => {
-    navigate(`/product-details/${productId}`); 
+    navigate(`/product-details/${productId}`);
   };
 
   if (loading) {
@@ -52,17 +52,18 @@ function ProductsPage() {
   return (
     <div className="products-page">
       <VideoBackground />
-      <h1>{`Products for Category ID: ${categoryId}`}</h1>
+      <h1 style={{ color: '#54004E' }}>{`Products for Category ID: ${categoryId}`}</h1>
       <div className="products-grid">
         {products.map(product => (
           <button
             key={product.id}
-            className="btn btn-primary product-button custom-btn"
+            className="product-button"
             onClick={() => handleProductClick(product.id)}
             style={{
               backgroundImage: `url(${product.image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              backgroundColor: '#F0B310', // Vibrant Gold as a fallback color
             }}
           >
             <span>{product.name[language]}</span>
