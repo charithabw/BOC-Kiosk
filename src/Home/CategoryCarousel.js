@@ -17,7 +17,11 @@ import {
 import categoryServices from "../categories/Services";
 import { useLanguage } from "../language/LanguageContext";
 
-const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
+const CategoryCarousel = ({
+  onSelectCategory,
+  onSelectCategoryName,
+  selectedCategory,
+}) => {
   const [categories, setCategories] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isScrolling, setIsScrolling] = useState(true);
@@ -34,8 +38,26 @@ const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
         if (response.statusCode === "SUCCESS") {
           const categoryData = response.data || [];
           setCategories(categoryData);
-          if (categoryData.length > 0) {
-            setActiveIndex(0); // Set the first category as active
+
+          // After setting categories, find and set the active index
+          if (selectedCategory && categoryData.length > 0) {
+            const foundIndex = categoryData.findIndex(
+              (cat) => cat.categoryID === selectedCategory
+            );
+            if (foundIndex !== -1) {
+              setActiveIndex(foundIndex);
+              console.log("Found category index:", foundIndex);
+              // Also trigger the selection callbacks
+              const foundCategory = categoryData[foundIndex];
+              onSelectCategory(foundCategory.categoryID);
+              onSelectCategoryName(
+                language === "si"
+                  ? foundCategory.catSin
+                  : language === "ta"
+                  ? foundCategory.catTam
+                  : foundCategory.catEng
+              );
+            }
           }
         } else {
           console.error("Failed to fetch categories:", response.message);
@@ -45,7 +67,7 @@ const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [selectedCategory, language]); //
 
   useEffect(() => {
     if (!isScrolling || categories.length === 0) return;
@@ -177,8 +199,16 @@ const CategoryCarousel = ({ onSelectCategory, onSelectCategoryName }) => {
                   boxShadow: isActive ? "0px 4px 10px rgba(0,0,0,0.2)" : "none",
                   padding: "10px",
                   backgroundSize: "cover",
+                  backgroundColor: "black",
                   backgroundPosition: "center",
-                  backgroundImage: `url(https://images.unsplash.com/photo-1601597111158-2fceff292cdc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+                  //backgroundImage: `url(https://images.unsplash.com/photo-1601597111158-2fceff292cdc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+                  backgroundImage: category.imagePath
+                    ? `url(${category.imagePath})`
+                    : `url(https://images.unsplash.com/photo-1601597111158-2fceff292cdc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+                  // opacity: 0.3,
+                  //zIndex: 2,
+
+                  //filter: "blur(1px)",
                 }}
               >
                 <CardContent>

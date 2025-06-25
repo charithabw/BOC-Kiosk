@@ -1,15 +1,11 @@
-
-import { CommonGet } from '../Common/HttpClient';
+import { CommonGet } from "../Common/HttpClient";
 
 export default {
-    getAllCategories
-
+  getAllCategories,
 };
-
 
 async function getAllCategories() {
-    console.log("hit");
-    let response = await CommonGet('Catogory/GetCatorgory');
-    console.log(response);
-    return response;
-};
+  let response = await CommonGet("Catogory/GetCatorgory");
+  console.log(response);
+  return response;
+}

@@ -210,13 +210,11 @@ function ProductDetailsPage() {
       "\r\n"
     ));
 
-  const toImageUrl = (base64Url) => `data:image/jpeg;base64,${base64Url}`;
-
   const { logo, qrAndroid, qrApple, qrHuawei } = productImages;
   const qrCodes = {
-    appStore: toImageUrl(qrApple),
-    playStore: toImageUrl(qrAndroid),
-    huaweiStore: toImageUrl(qrHuawei),
+    appStore: qrApple,
+    playStore: qrAndroid,
+    huaweiStore: qrHuawei,
   };
 
   const tabs = [
@@ -238,7 +236,7 @@ function ProductDetailsPage() {
               {/* Logo Section */}
               {logo ? (
                 <motion.img
-                  src={toImageUrl(logo)}
+                  src={logo}
                   alt="Product logo"
                   style={{ width: 200, height: "auto", marginBottom: "0px" }}
                   initial={{ opacity: 0, x: -50 }}
@@ -297,7 +295,7 @@ function ProductDetailsPage() {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: "text.secondary",
+                      color: "text.primary",
                       fontWeight: "bold",
                       fontSize: "1.2rem",
                       textAlign: "justify",
@@ -331,9 +329,17 @@ function ProductDetailsPage() {
                   <Typography
                     variant="h6"
                     sx={{
+                      color: "white",
+                      backgroundColor: "rgba(255, 165, 0, 0.5)",
+                      borderTopLeftRadius: "10px",
+                      borderTopRightRadius: "10px",
                       fontWeight: "bold",
                       mb: 2,
+                      padding: "0 10px",
+                      borderBottom: "solid 2px rgba(255, 165, 0, 1)",
+                      //width: "100%",
                       textAlign: "left",
+                      boxSizing: "border-box",
                     }}
                   >
                     {getSubtitle()}
@@ -351,6 +357,7 @@ function ProductDetailsPage() {
                         <Typography
                           variant="body1"
                           sx={{
+                            color: "text.primary",
                             fontWeight: "bold",
                             textAlign: "left",
                           }}
@@ -445,7 +452,7 @@ function ProductDetailsPage() {
             sx={{
               position: "fixed",
               right: 140,
-              bottom: 150,
+              top: 150,
               backgroundColor: "rgba(255, 165, 0, 0.8)",
               animation: "pulse 3s infinite",
               "&:hover": {
@@ -476,7 +483,7 @@ function ProductDetailsPage() {
             sx={{
               position: "fixed",
               right: 140,
-              bottom: 105,
+              top: 195,
               backgroundColor: "rgba(255, 165, 0, 0.8)",
               animation: "pulse 3s infinite",
               "&:hover": {

@@ -71,7 +71,8 @@ const FAQPage = ({ productId }) => {
               sx={{
                 marginBottom: 2,
                 borderRadius: "10px",
-                backgroundColor: "rgba(255, 255, 255, 0.9)",
+                backgroundColor: "background.primary",
+                //  rgba(255, 255, 255, 0.9)
                 boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                 "&:hover": {
                   boxShadow: "0 6px 12px rgba(255, 165, 0, 0.3)",
