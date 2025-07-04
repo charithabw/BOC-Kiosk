@@ -4,15 +4,15 @@ import { styled } from "@mui/material/styles";
 import { useTheme } from "../theme/ThemeContext";
 
 const exchangeRates = [
-  { code: "USD", buy: "286.2500", sell: "294.2500", flag: "us" },
-  { code: "AED", buy: "73.1924", sell: "83.6004", flag: "ae" },
-  { code: "AUD", buy: "179.5991", sell: "190.6771", flag: "au" },
-  { code: "BHD", buy: "675.1258", sell: "784.3905", flag: "bh" },
-  { code: "CNY", buy: "36.9925", sell: "40.8416", flag: "cn" },
-  { code: "JPY", buy: "1.8366", sell: "1.8366", flag: "jp" },
-  { code: "EUR", buy: "295.6115", sell: "310.0231", flag: "eu" },
-  { code: "GBP", buy: "358.0765", sell: "373.2929", flag: "gb" },
-  { code: "CAD", buy: "198.9506", sell: "210.1080", flag: "ca" },
+  { code: "USD", buy: "BUY-286.2500", sell: "SELL-294.2500", flag: "US" },
+  { code: "AED", buy: "BUY-73.1924", sell: "SELL-83.6004", flag: "AE" },
+  { code: "AUD", buy: "BUY-179.5991", sell: "SELL-190.6771", flag: "AU" },
+  { code: "BHD", buy: "BUY-675.1258", sell: "SELL-784.3905", flag: "BH" },
+  { code: "CNY", buy: "BUY-36.9925", sell: "SELL-40.8416", flag: "CN" },
+  { code: "JPY", buy: "BUY-1.8366", sell: "SELL-1.8366", flag: "JP" },
+  //{ code: "EUR", buy: "295.6115", sell: "310.0231", flag: "EU" },
+  { code: "GBP", buy: "BUY-358.0765", sell: "SELL-373.2929", flag: "GB" },
+  { code: "CAD", buy: "BUY-198.9506", sell: "SELL-210.1080", flag: "CA" },
 ];
 
 // Helper function to get theme colors
@@ -117,7 +117,7 @@ const FooterMarquee = () => {
         {marqueeRates.map((rate, idx) => (
           <RateCard key={idx} elevation={0}>
             <FlagImage
-              src={`https://countryflagsapi.com/svg/${rate.flag}`}
+              src={`https://flagsapi.com/${rate.flag}/flat/64.png`}
               alt={`${rate.code} flag`}
             />
             <Stack spacing={0.1}>

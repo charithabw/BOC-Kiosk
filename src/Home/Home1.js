@@ -656,8 +656,10 @@ const Home1 = () => {
 
   // Sample ads - replace with  actual ads
   const ads = [
-    "/images/promo/ad1.png",
-    "/images/promo/ad2.jpg",
+    "/images/promo/adz (2).png",
+    "/images/promo/adz (3).png",
+    "/images/promo/adz (1).png",
+
     //"https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop",
   ];
 
@@ -687,13 +689,20 @@ const Home1 = () => {
   const getCategoriesText = () => {
     switch (language) {
       case "si":
-        return "ප්රධාන ප්රවර්ග";
+        return "Main Categories";
       case "ta":
         return "முக்கிய வகைகள்";
       default:
         return "Main Categories";
     }
   };
+
+  useEffect(() => {
+    document.body.classList.add("hide-scrollbar");
+    return () => {
+      document.body.classList.remove("hide-scrollbar");
+    };
+  }, []);
 
   return (
     <MainContainer maxWidth={false} disableGutters>
@@ -884,9 +893,8 @@ const CategoryCard = React.forwardRef(
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: category.imagePath
-              ? `url(${category.imagePath})`
-              : getCategoryImage(),
+
+            backgroundImage: `url(${category.imagePath})`,
             //backgroundImage: `url(${getCategoryImage()})`,
             backgroundSize: "cover",
             backgroundPosition: "center",

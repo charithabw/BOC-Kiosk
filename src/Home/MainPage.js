@@ -14,6 +14,7 @@ import ThemedBackground from "../components/ThemedBackground";
 import { useLanguage } from "../language/LanguageContext";
 import TouchAppIcon from "@mui/icons-material/TouchApp";
 import Footer from "../components/Footer";
+
 // Styled components
 const MainContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -152,6 +153,7 @@ const MainPage = () => {
             border: `1px solid ${muiTheme.palette.primary.main}33`,
           }}
         >
+          {/*
           <TouchAppIcon sx={{ color: muiTheme.palette.primary.main }} />
           <Typography color="white">
             {language === "si"
@@ -159,7 +161,7 @@ const MainPage = () => {
               : language === "ta"
               ? "வகையைத் தேர்ந்தெடுக்கவும்"
               : "Select a category"}
-          </Typography>
+          </Typography> */}
         </motion.div>
       )}
 

@@ -17,8 +17,8 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.5, 0), // Less vertical padding
   zIndex: 10,
   width: "100%",
-  height: "60px", // Thinner header
-  minHeight: "60px",
+  height: "100px", // Thinner header
+  minHeight: "100px",
   backdropFilter: "blur(5px)",
   background: "none",
   boxShadow: "none",
@@ -27,18 +27,20 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
 // Flipped, left-side logo breakout shape
 const LogoBreakout = styled(Box)(({ theme, customTheme }) => ({
   position: "absolute",
-  top: "-8px",
+  top: "0px",
   left: "0px",
-  width: "260px", // Make the logo breakout bigger
-  height: "90px",
+  width: "250px", // Make the logo breakout bigger
+  height: "100px",
   background: customTheme.backgroundLight,
+  backdropFilter: "blur(5px)",
+
   borderTopLeftRadius: "80px 80px 0 0/120px 120px 0 0", // Large curve top left
   borderTopRightRadius: "0 0 80px 80px/0 0 120px 120px", // Flat top right
   borderBottomLeftRadius: "60px 60px 0 0/80px 80px 0 0", // Curve bottom left
   //borderBottomRightRadius: "0 0 0 0/0 0 0 0", // Flat bottom right
-  borderBottomRightRadius: "20px", // Flat bottom right
-  border: `2px solid ${customTheme.accentTransparent}`,
-  boxShadow: `0 5px 15px rgba(0,0,0,0.2), 0 0 10px ${customTheme.accentTransparent}`,
+  borderBottomRightRadius: "30px", // Flat bottom right
+  //border: `2px solid ${customTheme.accentTransparent}`,
+  //boxShadow: `0 5px 15px rgba(0,0,0,0.2), 0 0 10px ${customTheme.accentTransparent}`,
   zIndex: 20,
   display: "flex",
   alignItems: "center",
@@ -60,13 +62,13 @@ const LogoContainer = styled(Box)(({ theme }) => ({
 const DateTimeContainer = styled(Box)(({ theme, customTheme }) => ({
   display: "flex",
   flexDirection: "column",
-  background: customTheme.backgroundLight,
+  //background: customTheme.backgroundLight,
   padding: "2px 4px",
-  borderRadius: "10px",
-  backdropFilter: "blur(5px)",
-  border: `1.5px solid ${customTheme.accentTransparent}`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.18), 0 0 6px ${customTheme.accentTransparent}`,
-  fontSize: "0.85rem",
+  //borderRadius: "10px",
+  //backdropFilter: "blur(5px)",
+  //border: `1.5px solid ${customTheme.accentTransparent}`,
+  //boxShadow: `0 2px 6px rgba(0, 0, 0, 0.18), 0 0 6px ${customTheme.accentTransparent}`,
+  fontSize: "1.5rem",
   minWidth: "140px",
   marginRight: "60px",
   alignItems: "flex-end",
@@ -77,7 +79,7 @@ const GlowingText = styled(Typography)(({ theme, customTheme }) => ({
   textShadow: `0 0 6px ${customTheme.accentMain}99`,
   fontWeight: "bold",
   letterSpacing: "0.5px",
-  fontSize: "1rem",
+  fontSize: "2rem",
 }));
 
 const LanguageSelectorBox = styled(Box)(({ customTheme }) => ({
@@ -100,7 +102,7 @@ const LanguageButton = styled(Box)(({ active, customTheme }) => ({
   color: active ? customTheme.accentMain : customTheme.text,
   borderRadius: "18px",
   padding: "3px 12px",
-  fontSize: "0.95rem",
+  fontSize: "1rem",
   fontWeight: "bold",
   border: `1.5px solid ${
     active ? customTheme.accentMain : customTheme.accentTransparent
@@ -136,7 +138,7 @@ const getThemeColors = (mode) => {
       accentLight: LIGHT_YELLOW_LIGHT,
       background: "rgba(255, 255, 255, 0.9)",
       backgroundMedium: "rgba(248, 248, 248, 0.9)",
-      backgroundLight: "rgba(255, 255, 255, 0.7)",
+      backgroundLight: "rgba(255, 255, 255, 0.8)",
       cardBackground: "rgba(255, 255, 255, 0.8)",
       text: "#333333",
       textSecondary: "rgba(0, 0, 0, 0.7)",
@@ -153,7 +155,7 @@ const getThemeColors = (mode) => {
     accentLight: YELLOW_LIGHT,
     background: "rgba(0, 0, 0, 0.7)",
     backgroundMedium: "rgba(0, 0, 0, 0.7)",
-    backgroundLight: "rgba(0, 0, 0, 0.6)",
+    backgroundLight: "rgba(0, 0, 0, 0.8)",
     cardBackground: "rgba(0, 0, 0, 0.7)",
     text: "#ffffff",
     textSecondary: "rgba(255, 255, 255, 0.8)",
@@ -206,10 +208,10 @@ const Header = () => {
           src={logo333}
           alt="DigiAssist Logo"
           sx={{
-            height: { xs: "70px", sm: "80px", md: "90px" }, // Larger logo
+            height: { xs: "80px", sm: "90px", md: "100px" }, // Larger logo
             position: "relative",
             zIndex: 2,
-            filter: mode === "dark" ? "brightness(2)" : "none",
+            filter: mode === "dark" ? "brightness(1.5)" : "none",
             transition: "filter 0.3s ease",
           }}
         />
@@ -238,15 +240,15 @@ const Header = () => {
   );
 
   return (
-    <Box sx={{ position: "relative", width: "100%", minHeight: "60px" }}>
+    <Box sx={{ position: "relative", width: "100%", minHeight: "80px" }}>
       {/* Logo breakout on the far left, above header */}
       <GlowingLogo />
       <HeaderContainer
         sx={{
           backgroundColor: colors.background,
           paddingLeft: "200px",
-          minHeight: "60px",
-          height: "60px",
+          minHeight: "80px",
+          height: "80px",
           position: "relative",
         }}
       >
@@ -273,13 +275,13 @@ const Header = () => {
           <DateTimeContainer customTheme={colors}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 0.2 }}>
               <AccessTimeIcon
-                sx={{ color: colors.accentMain, mr: 0.5, fontSize: "1.1rem" }}
+                sx={{ color: colors.accentMain, mr: 0.5, fontSize: "1.2rem" }}
               />
               <GlowingText
                 variant="body2"
                 customTheme={colors}
                 sx={{
-                  fontSize: "0.95rem",
+                  fontSize: "1.5rem",
                   fontFamily: "monospace",
                   letterSpacing: 1,
                 }}
@@ -296,7 +298,7 @@ const Header = () => {
                 sx={{
                   color: colors.text,
                   fontWeight: 500,
-                  fontSize: "0.85rem",
+                  fontSize: "1rem",
                 }}
               >
                 {formatDate(currentDate)}

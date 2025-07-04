@@ -18,7 +18,7 @@ const ThemedBackground = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.style.filter =
-        mode === "light" ? "brightness(0.7)" : "brightness(0.4)";
+        mode === "light" ? "brightness(0.4)" : "brightness(0.4)";
     }
   }, [mode]);
 

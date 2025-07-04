@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, useTheme as useMuiTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme as useMuiTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
 import Carousel from "react-material-ui-carousel";
@@ -8,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../language/LanguageContext";
 import { useTheme } from "../theme/ThemeContext";
 import productIcon from "../assets/images/product-icon.png";
+//import productIcon from "../assets/images/bapp.png";
 import TouchAppIcon from "@mui/icons-material/TouchApp";
 
 // Styled components
@@ -17,9 +23,10 @@ const ProductContainer = styled(Box)(({ theme, isMobile }) => ({
   flexDirection: "column",
   borderRadius: "20px",
   padding: theme.spacing(3, 4),
-  background: theme.palette.mode === "dark" 
-    ? "rgba(0, 0, 0, 0.5)" 
-    : "rgba(255, 255, 255, 0.5)",
+  background:
+    theme.palette.mode === "dark"
+      ? "rgba(0, 0, 0, 0.5)"
+      : "rgba(255, 255, 255, 0.5)",
   backdropFilter: "blur(10px)",
   border: `1px solid ${theme.palette.primary.main}33`,
   boxShadow: `0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px ${theme.palette.primary.main}33`,
@@ -33,9 +40,10 @@ const CategoryHeader = styled(motion.div)(({ theme }) => ({
   justifyContent: "center",
   marginBottom: theme.spacing(3),
   padding: theme.spacing(1, 3),
-  background: theme.palette.mode === "dark"
-    ? `linear-gradient(135deg, ${theme.palette.primary.dark}66, ${theme.palette.primary.main}33)`
-    : `linear-gradient(135deg, ${theme.palette.primary.light}99, ${theme.palette.primary.main}66)`,
+  background:
+    theme.palette.mode === "dark"
+      ? `linear-gradient(135deg, ${theme.palette.primary.dark}66, ${theme.palette.primary.main}33)`
+      : `linear-gradient(135deg, ${theme.palette.primary.light}99, ${theme.palette.primary.main}66)`,
   borderRadius: "15px",
   backdropFilter: "blur(5px)",
   boxShadow: `0 10px 20px rgba(0, 0, 0, 0.1), 0 0 15px ${theme.palette.primary.main}33`,
@@ -58,7 +66,7 @@ const WelcomeContainer = styled(motion.div)(({ theme }) => ({
 // Use the old color array (6 colors)
 const colorArray = [
   "#FF5733",
-  "#F1C40F", 
+  "#F1C40F",
   "#2C3E50",
   "#3498DB",
   "#8E44AD",
@@ -111,24 +119,28 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     rotateX: 0,
-    transition: { type: "spring", stiffness: 300, damping: 20 }
+    transition: { type: "spring", stiffness: 300, damping: 20 },
   },
   hover: {
     scale: 1.05,
     boxShadow: "0 30px 40px rgba(0,0,0,0.4)",
     rotateX: 15,
     rotateY: 5,
-    transition: { type: "spring", stiffness: 300, damping: 15 }
+    transition: { type: "spring", stiffness: 300, damping: 15 },
   },
   tap: {
     scale: 0.95,
     boxShadow: "0 15px 20px rgba(0,0,0,0.3)",
     rotateX: 0,
     rotateY: 0,
-  }
+  },
 };
 
-const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
+const ProductGrid = ({
+  selectedCategory,
+  selectedCategoryName,
+  selectedCategoryName1,
+}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showTip, setShowTip] = useState(false);
@@ -156,7 +168,7 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
         setLoading(false);
         return;
       }
-      
+
       setLoading(true);
       try {
         const response = await productService.GetProductNamebyCategoryID(
@@ -197,53 +209,55 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        animate={{ 
+        animate={{
           scale: [1, 1.05, 1],
           rotateY: [0, 5, 0],
           rotateX: [0, 2, 0],
         }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Typography 
-          variant="h3" 
-          sx={{ 
+        <Typography
+          variant="h3"
+          sx={{
             mb: 3,
             fontWeight: "bold",
             color: muiTheme.palette.primary.main,
-            textShadow: `0 0 10px ${muiTheme.palette.primary.main}66`
+            textShadow: `0 0 10px ${muiTheme.palette.primary.main}66`,
           }}
         >
-          {language === "si" 
-            ? "බැංකු ස්වයං සේවාව" 
-            : language === "ta" 
-              ? "வங்கி சுய சேவை" 
-              : "Bank Self-Service"}
+          {language === "si"
+            ? "බැංකු ස්වයං සේවාව"
+            : language === "ta"
+            ? "வங்கி சுய சேவை"
+            : "Bank Self-Service"}
         </Typography>
       </motion.div>
 
       <Typography variant="h5" sx={{ mb: 4, opacity: 0.8 }}>
-        {language === "si" 
-          ? "කරුණාකර ප්‍රවර්ගයක් තෝරන්න" 
-          : language === "ta" 
-            ? "ஒரு வகையைத் தேர்ந்தெடுக்கவும்" 
-            : "Please select a category"}
+        {language === "si"
+          ? "කරුණාකර ප්‍රවර්ගයක් තෝරන්න"
+          : language === "ta"
+          ? "ஒரு வகையைத் தேர்ந்தெடுக்கவும்"
+          : "Please select a category"}
       </Typography>
 
       <motion.div
-        animate={{ 
+        animate={{
           y: [0, -15, 0],
-          opacity: [0.5, 1, 0.5]
+          opacity: [0.5, 1, 0.5],
         }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <TouchAppIcon sx={{ color: muiTheme.palette.primary.main, fontSize: "2rem" }} />
+          <TouchAppIcon
+            sx={{ color: muiTheme.palette.primary.main, fontSize: "2rem" }}
+          />
           <Typography variant="body1">
-            {language === "si" 
-              ? "වමේ ඇති ප්‍රවර්ග" 
-              : language === "ta" 
-                ? "இடது பக்கத்தில் உள்ள வகைகள்" 
-                : "Categories on the left"}
+            {language === "si"
+              ? "වමේ ඇති ප්‍රවර්ග"
+              : language === "ta"
+              ? "இடது பக்கத்தில் உள்ள வகைகள்"
+              : "Categories on the left"}
           </Typography>
         </Box>
       </motion.div>
@@ -263,27 +277,23 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
         <CategoryHeader
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          whileHover={{ 
-            scale: 1.03, 
-            boxShadow: `0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px ${muiTheme.palette.primary.main}66` 
+          whileHover={{
+            scale: 1.03,
+            boxShadow: `0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px ${muiTheme.palette.primary.main}66`,
           }}
         >
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            {selectedCategoryName}
+          <Typography variant="h5" fontWeight="bold" textAlign="center">
+            {selectedCategoryName || `Products`}
           </Typography>
         </CategoryHeader>
 
-      <Carousel
-        indicators={products.length > 6}
-        navButtonsAlwaysVisible={products.length > 6}
+        <Carousel
+          indicators={products.length > 6}
+          navButtonsAlwaysVisible={products.length > 6}
           animation="slide"
           duration={800}
-        navButtonsProps={{
-          style: {
+          navButtonsProps={{
+            style: {
               backgroundColor: muiTheme.palette.primary.main,
               borderRadius: "15px",
               padding: "8px",
@@ -304,44 +314,44 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
           activeIndicatorIconButtonProps={{
             style: {
               color: muiTheme.palette.primary.main,
-          },
-        }}
-      >
-        {chunkedProducts.map((chunk, slideIndex) => (
+            },
+          }}
+        >
+          {chunkedProducts.map((chunk, slideIndex) => (
             <motion.div
               key={`slide-${slideIndex}`}
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)", // Use old grid template
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)", // Use old grid template
                 gap: "15px",
                 width: "100%",
                 height: "400px", // Use old fixed height
                 perspective: "1000px",
                 transformStyle: "preserve-3d",
-            }}
-          >
-            {chunk.map((product) => (
+              }}
+            >
+              {chunk.map((product) => (
                 <motion.div
-                key={product.id}
+                  key={product.id}
                   variants={itemVariants}
                   whileHover="hover"
                   whileTap="tap"
                   onClick={() => handleProductClick(product.id)}
                   style={{
                     background: getColorGradient(product.color, mode),
-                  backgroundSize: "200% 200%",
-                  color: "#fff",
+                    backgroundSize: "200% 200%",
+                    color: "#fff",
                     gridColumn: `span ${product.colSpan}`, // Use old colSpan logic
                     borderRadius: "15px",
                     padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
                     boxShadow: "0 15px 30px rgba(0,0,0,0.2)",
                     border: `1px solid ${product.color}33`,
                     overflow: "hidden",
@@ -355,7 +365,11 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
                     animate={{
                       backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
                     }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                     sx={{
                       position: "absolute",
                       top: 0,
@@ -392,31 +406,31 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
                         alignItems: "center",
                         justifyContent: "center",
                         mb: 2,
-                  }}
-                >
-                  <img
-                    src={productIcon}
-                    alt="product"
-                    style={{
+                      }}
+                    >
+                      <img
+                        src={productIcon}
+                        alt="product"
+                        style={{
                           width: "100%",
-                      height: "auto",
-                      filter: "brightness(0) invert(1)",
-                      objectFit: "contain",
-                    }}
-                  />
-                </Box>
+                          height: "auto",
+                          filter: "brightness(0) invert(1)",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </Box>
 
-                    <Typography 
-                      variant="h6" 
+                    <Typography
+                      variant="h6"
                       fontWeight="bold"
                       textAlign="center"
                       sx={{
                         textShadow: "0 2px 5px rgba(0,0,0,0.5)",
                       }}
                     >
-                  {product.name[language] || product.name.en}
-                </Typography>
-              </Box>
+                      {product.name[language] || product.name.en}
+                    </Typography>
+                  </Box>
 
                   {/* 3D hover effect - floating particles */}
                   {[...Array(5)].map((_, i) => (
@@ -454,8 +468,8 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
                 </motion.div>
               ))}
             </motion.div>
-        ))}
-      </Carousel>
+          ))}
+        </Carousel>
 
         {/* Touch hint overlay */}
         <AnimatePresence>
@@ -484,11 +498,11 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
             >
               <TouchAppIcon sx={{ color: muiTheme.palette.primary.main }} />
               <Typography>
-                {language === "si" 
-                  ? "සේවාවක් තෝරන්න" 
-                  : language === "ta" 
-                    ? "சேவையைத் தேர்ந்தெடுக்கவும்" 
-                    : "Select a service"}
+                {language === "si"
+                  ? "සේවාවක් තෝරන්න"
+                  : language === "ta"
+                  ? "சேவையைத் தேர்ந்தெடுக்கவும்"
+                  : "Select a service"}
               </Typography>
             </motion.div>
           )}
@@ -498,7 +512,7 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
   };
 
   return (
-    <ProductContainer 
+    <ProductContainer
       isMobile={isMobile}
       component={motion.div}
       initial={{ opacity: 0, x: 50 }}
@@ -508,20 +522,20 @@ const ProductGrid = ({ selectedCategory, selectedCategoryName }) => {
       {!selectedCategory ? (
         renderWelcome()
       ) : loading ? (
-        <Box 
-          sx={{ 
-            display: "flex", 
-            justifyContent: "center", 
-            alignItems: "center", 
-            height: "100%" 
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
           }}
         >
           <Typography variant="h6" color="text.secondary">
-            {language === "si" 
-              ? "පූරණය වෙමින්..." 
-              : language === "ta" 
-                ? "ஏற்றுகிறது..." 
-                : "Loading..."}
+            {language === "si"
+              ? "පූරණය වෙමින්..."
+              : language === "ta"
+              ? "ஏற்றுகிறது..."
+              : "Loading..."}
           </Typography>
         </Box>
       ) : (

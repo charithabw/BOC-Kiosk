@@ -274,7 +274,7 @@ function ProductDetailsPage() {
                       borderTopLeftRadius: "10px",
                       borderTopRightRadius: "10px",
                       fontWeight: "bold",
-                      fontSize: "2.5rem",
+                      fontSize: "2rem",
                       padding: "0 10px",
                       borderBottom: "solid 2px rgba(255, 165, 0, 1)",
                       //width: "100%",
