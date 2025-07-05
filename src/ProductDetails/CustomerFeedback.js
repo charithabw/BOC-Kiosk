@@ -9,6 +9,7 @@ import {
   IconButton,
   Snackbar,
   Alert,
+  useTheme,
 } from "@mui/material";
 
 const CustomerFeedback = ({ productId, productName }) => {
@@ -60,9 +61,12 @@ const CustomerFeedback = ({ productId, productName }) => {
       CusName: formData.name,
       CusPhone: formData.phone,
       CusEmail: formData.email,
-      ProductID: productId,
+      //ScreenID: productId,
+      ScreenID: productId,
+      //ProductID: productId,
       CreatedDate: new Date().toISOString(),
     };
+    console.log(productId);
 
     try {
       const response = await productService.postFeedback(feedbackData);
@@ -84,7 +88,9 @@ const CustomerFeedback = ({ productId, productName }) => {
     <Box
       sx={{
         p: 2,
-        bgcolor: "rgba(255, 255, 255, 0.5)",
+        bgcolor: "background.paper",
+
+        //bgcolor: "rgba(255, 255, 255, 0.5)",
         borderRadius: 2,
         boxShadow: 3,
         maxWidth: 1200,

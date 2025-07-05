@@ -1,3 +1,23 @@
+:root {
+  --yellow-color: #ffa500;
+  --yellow-dark: #fbc02d;
+  --yellow-light: #fff59d;
+  --transition-duration: 0.5s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,9 +25,71 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-duration) ease,
+    color var(--transition-duration) ease;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  transition: all var(--transition-duration) ease;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Make links yellow */
+a {
+  color: var(--yellow-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--yellow-light);
+  text-shadow: 0 0 5px var(--yellow-color);
+}
+
+/* Transitions for light/dark theme switch */
+.MuiButton-root,
+.MuiIconButton-root,
+.MuiTypography-root,
+.MuiPaper-root,
+.MuiCard-root {
+  transition: all var(--transition-duration) ease !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--yellow-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow-dark);
+}
+
+/* Smooth animations for all elements */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Add support for 3D transforms */
+.preserve-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
